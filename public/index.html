@@ -10,27 +10,43 @@
 
         </main>
 
-        <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
         <script>
 
-          let googleURL = "https://accounts.google.com/o/oauth2/v2/auth";
+          function createAuthURL(base, options) {
+            const query = Object.keys(options).map( (key,i) => {
+              return `${key}=` + encodeURIComponent(options[key]);
+            }).join("&");
 
-          let options = {
-            client_id:'YOUR-GOOGLE-CLIENT-ID',
-            redirect_uri: 'YOUR-SERVER-URL/oauth',
+            return `${base}?${query}`;
+          }
+
+          let googleURL = 'https://accounts.google.com/o/oauth2/v2/auth';
+          //927285239286-apduen80atdemgpamshr1s06rpr7sjid.apps.googleusercontent.com
+          //vIDwanLWIjrCUglgWwDHYGgq
+
+          let googleOptions = {
+            client_id:'927285239286-apduen80atdemgpamshr1s06rpr7sjid.apps.googleusercontent.com',
+            redirect_uri: 'https://lab-11-auth-server.herokuapp.com/oauth',
             scope: 'email openid profile',
             prompt: 'consent',
             response_type: 'code'
           };
 
-          let QueryString = Object.keys(options).map( (key,i) => {
-            return `${key}=` + encodeURIComponent(options[key]);
-          }).join("&");
+          let microsoftURL = 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize';
 
-          let authURL = `${googleURL}?${QueryString}`;
+          let microsoftOptions = {
+            client_id: '1d1aeead-be95-45ff-be4d-e6674c67cd98',
+            response_type: 'code',
+            redirect_uri: 'https://lab-11-auth-server.herokuapp.com/oauth/microsoft',
+            response_mode: 'query',
+            scope: 'https://graph.microsoft.com/.default'
+          }
 
-          $('#oauth').append(`<a href="${authURL}">Login With Google</a>`);
+          $('#oauth').append(`
+<a href="${createAuthURL(googleURL, googleOptions)}">Login With Google</a><br>
+<a href="${createAuthURL(microsoftURL, microsoftOptions)}">Login With Microsoft</a>`);
 
         </script>
 
