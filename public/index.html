@@ -28,7 +28,7 @@
 
           let googleOptions = {
             client_id:'927285239286-apduen80atdemgpamshr1s06rpr7sjid.apps.googleusercontent.com',
-            redirect_uri: 'http://localhost:3000/oauth',
+            redirect_uri: 'https://lab-11-auth-server.herokuapp.com/oauth',
             scope: 'email openid profile',
             prompt: 'consent',
             response_type: 'code'
@@ -39,7 +39,7 @@
           let microsoftOptions = {
             client_id: '1d1aeead-be95-45ff-be4d-e6674c67cd98',
             response_type: 'code',
-            redirect_uri: 'http://localhost:3000/oauth/microsoft',
+            redirect_uri: 'https://lab-11-auth-server.herokuapp.com/oauth/microsoft',
             response_mode: 'query',
             scope: 'https://graph.microsoft.com/.default'
           }
